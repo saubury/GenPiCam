@@ -3,3 +3,6 @@ python-dotenv
 Pillow 
 requests
 pyautogui
+beautifulsoup4
+markdown
+
