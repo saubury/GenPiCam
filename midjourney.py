@@ -25,7 +25,9 @@ def go_describe_mac(image_path):
     pg.press('tab')
     time.sleep(3)
     print(pg.position())
-    pg.moveTo(x=461, y=1176, duration=1)
+    # pg.moveTo(x=461, y=1176, duration=1)
+    # pg.moveTo(x=454, y=812, duration=1) # mac laptop mode
+    pg.moveTo(x=449, y=1195, duration=1) # mac main monitor
     time.sleep(1)
     pg.click()
     time.sleep(1)

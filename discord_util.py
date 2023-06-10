@@ -24,9 +24,7 @@ def get_message_text(msg):
     if not return_text:
         return_text = msg.content
 
-    print ('>>')
-    print(md_to_text(return_text))
-    print ('<<')
+    return md_to_text(return_text)
 
         
 def split_image(image_file):
@@ -76,3 +74,6 @@ async def download_image(url, filename):
             os.rename(f'{directory}/{input_folder}/{filename}', f'{directory}/{output_folder}/{filename}')
         # Delete the input file
         os.remove(f'{directory}/{input_folder}/{filename}')
+
+        ret_path = os.path.join(output_folder, file_prefix + '_top_left.jpg')
+        return ret_path
