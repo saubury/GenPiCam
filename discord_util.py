@@ -18,6 +18,7 @@ def get_message_text(msg):
     embeds = msg.embeds # return list of embeds
     for embed in embeds:
         print('** Found embed')
+        print(embed)
         return_text = embed.description
 
     # If still nothing try content

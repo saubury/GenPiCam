@@ -3,3 +3,4 @@ output/*
 discord_config.py
 __pycache__/*
 test_images/merged_image.jpg
+.DS_Store

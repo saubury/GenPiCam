@@ -18,7 +18,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     msg_content = message.content
-    # print(message)
+    print(message)
 
     for attachment in message.attachments:
         print(f'** Attachment found : message: {message.id}')
@@ -57,11 +57,14 @@ async def on_message(message):
         mj.go_describe_mac(file_in)
         mji.set_from_file(file_in)
 
-    elif msg_content.startswith("gg:"):
+    elif msg_content.startswith("ggm:"):
         msg_id = int(message.content.split(":")[1])
         print(f'** Attempt to get : message: {msg_id}')
         channel = message.channel
         msg = await channel.fetch_message(msg_id)
-        dut.get_message_text(msg)
+        cap_msg = dut.get_message_text(msg)
+        print ('>>')
+        print(cap_msg)
+        print ('<<')
 
 client.run(discord_config.discord_token)
