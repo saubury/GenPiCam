@@ -4,9 +4,10 @@ import discord_config
 import midjourney as mj
 import discord_util as dut
 import mj_images as mji
+import bot_settings as bset
 import time
-
-
+import configparser
+import argparse
 
 
 client = commands.Bot(command_prefix='*', intents=discord.Intents.all())
@@ -43,6 +44,7 @@ async def on_message(message):
 
     elif msg_content == 'gp':
         mji.print_settings()
+        bset.print_settings()
 
     elif msg_content == 'gg':
         # mji.set_caption('Caption a black cat laying on top of a yellow blanket, in the style of vivienne tam, graceful poses, smooth and shiny --ar 4:3 - ')
@@ -67,4 +69,20 @@ async def on_message(message):
         print(cap_msg)
         print ('<<')
 
-client.run(discord_config.discord_token)
+def main():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument(
+        '--enablePi',
+        help='Whether to enable Raspberry Pi buttons',
+        action='store_true',
+        required=False,
+        default=False)
+
+    args = parser.parse_args()
+
+    bset.set_is_pi(args.enablePi)
+    client.run(discord_config.discord_token)
+
+if __name__ == '__main__':
+    main()

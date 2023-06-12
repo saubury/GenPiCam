@@ -1,0 +1,22 @@
+anime style 
+retro pop art-style illustration, 
+Hyper Realistic, whimsical with colourful hat and balloons, 
+Blurry brushstrokes,
+futuristic, in a space station, hyper realistic
+
+
+
+if re.search('mandy', 'Mandy Pande', re.IGNORECASE):
+
+    if re.search('anime', caption, re.IGNORECASE):
+        return f'{background_path}/box_brown.png'
+    elif re.search('pop art', caption, re.IGNORECASE):
+        return f'{background_path}/box_cyan.png'
+    elif re.search('balloon', caption, re.IGNORECASE):
+        return f'{background_path}/box_green.png'
+    elif re.search('brush', caption, re.IGNORECASE):
+        return f'{background_path}/box_grey.png'
+    elif re.search('futuristic', caption, re.IGNORECASE):
+        return f'{background_path}/box_orange.png'
+    else:
+        return f'{background_path}/box_yellow.png'
