@@ -1,7 +1,16 @@
 import pyautogui as pg
 import time
 import bot_settings as bset
-import mj_images as mji
+import discord_util as dut
+
+def get_mj_message(msg):
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+    print(msg)
+    cap_msg = dut.get_message_text(msg)
+    print ('>>')
+    print(cap_msg)
+    print ('<<')
+    print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
 
 
 def go_imagine(prompt):
@@ -18,7 +27,7 @@ def go_imagine(prompt):
     time.sleep(5)
 
 def go_describe(image_path):
-    mji.set_from_file(image_path)
+    bset.set_from_file(image_path)
     if bset.get_is_pi():
         print('RaspberryPi')
         go_describe_rasppi(image_path)

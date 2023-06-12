@@ -20,7 +20,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     msg_content = message.content
-    print(message)
+    mj.get_mj_message(message)
 
     for attachment in message.attachments:
         print(f'** Attachment found : message: {message.id}')
@@ -31,11 +31,14 @@ async def on_message(message):
             cap_msg = dut.get_message_text(message)
             print ('>>')
             print(cap_msg)
-            mji.set_caption(cap_msg)
+            bset.set_caption(cap_msg)
             print ('<<')
 
             ret_path = await dut.download_image(attachment.url, f'{file_prefix}{attachment.filename}')
-            mji.set_to_file(ret_path)
+            bset.set_to_file(ret_path)
+            if (bset.get_automode()):
+                mji.do_create_img()   
+                bset.set_ignorebutton(False)             
 
     if msg_content == 'quit':
         quit()  
@@ -44,13 +47,12 @@ async def on_message(message):
         mj.go_imagine('a yellow rubber duck wearing red a silly hat')
 
     elif msg_content == 'gp':
-        mji.print_settings()
         bset.print_settings()
 
     elif msg_content == 'gtest':
-        mji.set_caption('Caption a black cat laying on top of a yellow blanket, in the style of vivienne tam, graceful poses, smooth and shiny --ar 4:3 - ')
-        mji.set_from_file('./test_images/01.JPG')
-        mji.set_to_file('./test_images/02.JPG')
+        bset.set_caption('Caption a black cat laying on top of a yellow blanket, in the style of vivienne tam, graceful poses, smooth and shiny --ar 4:3 - ')
+        bset.set_from_file('./test_images/01.JPG')
+        bset.set_to_file('./test_images/02.JPG')
         mji.do_create_img()
 
     elif msg_content == 'gg':
@@ -77,18 +79,21 @@ async def on_message(message):
 def main():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    
     parser.add_argument(
         '--enablePi',
         help='Whether to enable Raspberry Pi buttons',
         action='store_true',
         required=False,
         default=False)
+    
     parser.add_argument(
         '--auto',
         help='Whether to automatically chain actions',
         action='store_true',
         required=False,
         default=False)
+    
     args = parser.parse_args()
 
     bset.set_automode(args.auto)

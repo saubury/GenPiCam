@@ -8,26 +8,7 @@ import bot_settings as bset
 # caption = 'an orange and black pair of scissors on a desk, in the style of webcam photography, sparse and simple, matte photo, sharp satire, applecore, english major, hard-edged compositions --ar 4:3)'
 final_dir = './final'
 
-loc_caption = ''
-loc_from_file = ''
-loc_to_file = ''
 
-def print_settings():
-    print(f'Caption {loc_caption}')
-    print(f'From {loc_from_file}')
-    print(f'To {loc_to_file}')
-
-def set_caption(caption):
-    global loc_caption
-    loc_caption = caption
-
-def set_from_file(from_file):
-    global loc_from_file
-    loc_from_file = from_file
-
-def set_to_file(to_file):
-    global loc_to_file
-    loc_to_file = to_file
 
 def caption_wrap(caption):
     wrapper = textwrap.TextWrapper(width=50) 
@@ -73,11 +54,7 @@ def create_img_new(img_1, img_2, caption):
     new_image.paste(frontImage, (-90, 60), frontImage)
 
     draw = ImageDraw.Draw(new_image)
-    if bset.get_is_pi():
-        ifont = ImageFont.truetype('/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf', 26)
-    else:
-        ifont = ImageFont.truetype('Arial.ttf', 26)
-
+    ifont = ImageFont.truetype(bset.get_font() , 26)
     draw.text((20,260), caption, font=ifont, fill=(0,0,0))
 
     file_prefix = time.strftime('%Y%m%d_%H%M%S')
@@ -87,9 +64,7 @@ def create_img_new(img_1, img_2, caption):
 
 def do_create_img():
     print('Generating image')
-    print_settings()
-    # create_img(loc_from_file, loc_to_file, caption_wrap(loc_caption))
-    create_img_new(loc_from_file, loc_to_file, loc_caption)
+    create_img_new(bset.get_from_file(), bset.get_to_file(), bset.get_caption())
 
 
 
@@ -109,10 +84,10 @@ def get_background(caption):
     else:
         return f'{background_path}/box_yellow.png'
 
-if __name__ == '__main__':
-    img_from = '/Users/saubury/git/saubury/midjourney-bot/test_images/02.JPG'
-    img_to = 'output/20230611_090933_Simon_Aubury_retro_pop_art-style_illustration_a_pokemon_mug_sit_818e9f5a-0a96-461e-8a63-e5dd37cc43ad_top_left.jpg'
-    img_caption = 'retro pop art-style illustration, a pokemon mug sits on an apple keyboard, in the style of captured spontaneity feeling, worthington whittredge, ue5, meticulous, sarah purser, emphasis on the process, yellow and silver --ar 4:3 - <@1003065257578741851>'
+# if __name__ == '__main__':
+#     img_from = '/Users/saubury/git/saubury/midjourney-bot/test_images/02.JPG'
+#     img_to = 'output/20230611_090933_Simon_Aubury_retro_pop_art-style_illustration_a_pokemon_mug_sit_818e9f5a-0a96-461e-8a63-e5dd37cc43ad_top_left.jpg'
+#     img_caption = 'retro pop art-style illustration, a pokemon mug sits on an apple keyboard, in the style of captured spontaneity feeling, worthington whittredge, ue5, meticulous, sarah purser, emphasis on the process, yellow and silver --ar 4:3 - <@1003065257578741851>'
 
-    create_img_new(img_from, img_to, img_caption)
+#     create_img_new(img_from, img_to, img_caption)
 # create_img('test_images/before.jpg', 'test_images/after.jpg', caption_wrap(caption))
