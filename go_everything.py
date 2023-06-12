@@ -23,7 +23,7 @@ async def on_message(message):
     for attachment in message.attachments:
         print(f'** Attachment found : message: {message.id}')
         file_prefix = time.strftime('%Y%m%d_%H%M%S_')
-        if attachment.filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
+        if attachment.filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
             print(f'** Downloading images : message: {message.id}')
 
             cap_msg = dut.get_message_text(message)
