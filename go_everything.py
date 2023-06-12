@@ -5,6 +5,7 @@ import midjourney as mj
 import discord_util as dut
 import mj_images as mji
 import bot_settings as bset
+import rasp_pi as rp
 import time
 import configparser
 import argparse
@@ -46,18 +47,22 @@ async def on_message(message):
         mji.print_settings()
         bset.print_settings()
 
+    elif msg_content == 'gtest':
+        mji.set_caption('Caption a black cat laying on top of a yellow blanket, in the style of vivienne tam, graceful poses, smooth and shiny --ar 4:3 - ')
+        mji.set_from_file('./test_images/01.JPG')
+        mji.set_to_file('./test_images/02.JPG')
+        mji.do_create_img()
+
     elif msg_content == 'gg':
-        # mji.set_caption('Caption a black cat laying on top of a yellow blanket, in the style of vivienne tam, graceful poses, smooth and shiny --ar 4:3 - ')
-        # mji.set_from_file('/Users/saubury/git/saubury/midjourney-bot/test_images/01.JPG')
-        # mji.set_to_file('output/20230610_223745_Simon_Aubury_a_black_cat_laying_on_top_of_a_yellow_blanket_in_t_6bbdf148-1a97-4548-8a1d-18d996c4a7fa_top_left.jpg')
         mji.do_create_img()
 
     elif msg_content.startswith('gd:'):
         msg_ref = message.content.split(":")[1]
-        file_in = f'/Users/saubury/git/saubury/midjourney-bot/test_images/{msg_ref}.JPG'
+        test_img_path = bset.get_test_images_dir()
+        file_in = f'{test_img_path}/{msg_ref}.JPG'
         print(f'FILE IN: {file_in}')
-        mj.go_describe_mac(file_in)
-        mji.set_from_file(file_in)
+        mj.go_describe(file_in)
+        
 
     elif msg_content.startswith("ggm:"):
         msg_id = int(message.content.split(":")[1])
@@ -78,10 +83,20 @@ def main():
         action='store_true',
         required=False,
         default=False)
-
+    parser.add_argument(
+        '--auto',
+        help='Whether to automatically chain actions',
+        action='store_true',
+        required=False,
+        default=False)
     args = parser.parse_args()
 
-    bset.set_is_pi(args.enablePi)
+    bset.set_automode(args.auto)
+
+    if (args.enablePi):
+        bset.set_is_pi(True)
+        rp.setup_gpio()
+
     client.run(discord_config.discord_token)
 
 if __name__ == '__main__':

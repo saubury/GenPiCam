@@ -1,5 +1,8 @@
 import pyautogui as pg
 import time
+import bot_settings as bset
+import mj_images as mji
+
 
 def go_imagine(prompt):
 
@@ -13,6 +16,15 @@ def go_imagine(prompt):
     time.sleep(3)
     pg.press('enter')
     time.sleep(5)
+
+def go_describe(image_path):
+    mji.set_from_file(image_path)
+    if bset.get_is_pi():
+        print('RaspberryPi')
+        go_describe_rasppi(image_path)
+    else:
+        print('Mac')
+        go_describe_mac(image_path)
 
 
 def go_describe_mac(image_path):
@@ -45,3 +57,31 @@ def go_describe_mac(image_path):
     # final one
     time.sleep(2)
     pg.press('enter')
+
+def go_describe_rasppi(image_path):
+    time.sleep(3)
+    pg.write('/describe')
+    time.sleep(3)
+    pg.press('tab')
+    time.sleep(3)
+    print(pg.position())
+    # (x=294, y=341)
+    pg.moveTo(x=294, y=341, duration=1)
+    time.sleep(1)
+    pg.click()
+    time.sleep(1)
+    #            pg.hotkey('command','G', interval=0.1)
+    #            pg.write('/tmp/demo.jpg')
+    pg.write(image_path)
+    time.sleep(1)
+    # close the file path
+    pg.press('enter')    
+    time.sleep(1)
+    # close the browse window
+    pg.press('enter')
+    # complete the describe command
+    time.sleep(2)
+    pg.press('enter')        
+    # final one
+    time.sleep(2)
+    pg.press('enter')    

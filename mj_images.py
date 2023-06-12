@@ -2,6 +2,7 @@ from PIL import Image, ImageDraw, ImageFont
 import textwrap
 import time
 import re
+import bot_settings as bset
 
 # img_target='test_images/merged_image.jpg'
 # caption = 'an orange and black pair of scissors on a desk, in the style of webcam photography, sparse and simple, matte photo, sharp satire, applecore, english major, hard-edged compositions --ar 4:3)'
@@ -39,12 +40,10 @@ def caption_wrap(caption):
 
 
 def create_img_new(img_1, img_2, caption):
+    print(f'Caption is {caption}')
 
-    # initializing sub string
-    sub_str = "<@1003065257578741851>"
-    
-    # slicing off after length computation
-    caption = caption[:caption.index(sub_str) ]
+    # caption =  re.sub('[ - @].*$', '', caption)
+    caption =  re.sub(' \- @(.*$)', '', caption)
 
     caption = caption_wrap(caption)
     #Read the two images
@@ -74,7 +73,11 @@ def create_img_new(img_1, img_2, caption):
     new_image.paste(frontImage, (-90, 60), frontImage)
 
     draw = ImageDraw.Draw(new_image)
-    ifont = ImageFont.truetype('Arial.ttf', 26)
+    if bset.get_is_pi():
+        ifont = ImageFont.truetype('/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf', 26)
+    else:
+        ifont = ImageFont.truetype('Arial.ttf', 26)
+
     draw.text((20,260), caption, font=ifont, fill=(0,0,0))
 
     file_prefix = time.strftime('%Y%m%d_%H%M%S')

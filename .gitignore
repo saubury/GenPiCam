@@ -6,3 +6,8 @@ test_images/merged_image.jpg
 .DS_Store
 final/*.*
 input/box copy.png
+camera/*.jpg
+button.py
+go_everything_TEMP.py
+go_everything-OLD.py
+go.py
