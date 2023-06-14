@@ -5,7 +5,6 @@ import midjourney as mj
 import discord_util as dut
 import mj_images as mji
 import bot_settings as bset
-import rasp_pi as rp
 import time
 import configparser
 import argparse
@@ -99,6 +98,11 @@ def main():
     bset.set_automode(args.auto)
 
     if (args.enablePi):
+        try:
+            import rasp_pi as rp
+        except ImportError:
+            rasp_pi = None 
+        
         bset.set_is_pi(True)
         rp.setup_gpio()
 
