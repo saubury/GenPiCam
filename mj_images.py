@@ -16,8 +16,6 @@ def caption_wrap(caption):
     return return_text
 
 def create_img_new(img_1, img_2, caption):
-    print(f'Caption is {caption}')
-
     # Removing trailing text
     caption =  re.sub(' \- [<]@(.*$)', '', caption)
 
@@ -52,7 +50,6 @@ def create_img_new(img_1, img_2, caption):
     new_image.show()
 
 def do_create_img():
-    print('Generating image')
     create_img_new(bset.get_from_file(), bset.get_to_file(), bset.get_caption())
 
 def get_background(caption):

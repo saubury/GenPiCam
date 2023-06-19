@@ -5,15 +5,6 @@ import discord_util as dut
 
 # Low level mid-journey bot intteractions with PyAutoGUI to control the mouse and keyboard to automate interactions
 
-def get_mj_message(msg):
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-    print(msg)
-    cap_msg = dut.get_message_text(msg)
-    print ('>>')
-    print(cap_msg)
-    print ('<<')
-    print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
-
 
 def go_imagine(prompt):
 
@@ -31,10 +22,8 @@ def go_imagine(prompt):
 def go_describe(image_path):
     bset.set_from_file(image_path)
     if bset.get_is_pi():
-        print('RaspberryPi')
         go_describe_rasppi(image_path)
     else:
-        print('Mac')
         go_describe_mac(image_path)
 
 

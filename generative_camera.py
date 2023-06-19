@@ -19,7 +19,6 @@ async def on_ready():
 @client.event
 async def on_message(message):
     msg_content = message.content
-    mj.get_mj_message(message)
 
     for attachment in message.attachments:
         # Found attachment
@@ -50,12 +49,10 @@ async def on_message(message):
         msg_ref = message.content.split(':')[1]
         test_img_path = bset.get_test_images_dir()
         file_in = f'{test_img_path}/{msg_ref}.JPG'
-        print(f'FILE IN: {file_in}')
         mj.go_describe(file_in)
         
     elif msg_content.startswith('ggm:'):
         msg_id = int(message.content.split(':')[1])
-        print(f'** Attempt to get : message: {msg_id}')
         channel = message.channel
         msg = await channel.fetch_message(msg_id)
         cap_msg = dut.get_message_text(msg)

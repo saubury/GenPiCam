@@ -53,7 +53,6 @@ async def download_image(url, filename):
         f_response_img = f'{directory}/{input_folder}/{filename}'
         with open(f_response_img, 'wb') as f:
             f.write(response.content)
-        print(f'Image downloaded: {filename}')
         input_file = os.path.join(input_folder, filename)
 
         file_prefix = os.path.splitext(filename)[0]
