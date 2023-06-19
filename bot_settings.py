@@ -10,6 +10,7 @@ loc_caption = ''
 loc_from_file = ''
 loc_to_file = ''
 loc_font = 'Arial.ttf'
+loc_promptprefix = ''
 
 def print_settings():
     print(f'caption:{loc_caption}')
@@ -19,9 +20,15 @@ def print_settings():
     print(f'is_pi:{loc_is_pi}')
     print(f'is_automode:{loc_automode}')
     print(f'is_ignorebutton:{loc_ignorebutton}')
-    print(f'is_font:{loc_font}')
+    print(f'font:{loc_font}')
+    print(f'promptprefix:{loc_promptprefix}')
 
+def get_promptprefix():
+    return loc_promptprefix
 
+def set_promptprefix(promptprefix):
+    global loc_promptprefix
+    loc_promptprefix = promptprefix   
 
 def get_font():
     return loc_font

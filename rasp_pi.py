@@ -16,24 +16,21 @@ def button_callback(channel):
     take_photo()
     if GPIO.input(8) == GPIO.HIGH:
         print('Switch on')
+        bset.set_promptprefix('Anime')
     else:
         print('Switch off')
+        bset.set_promptprefix('')
 
 
 def take_photo():
     file_prefix = time.strftime('%Y%m%d_%H%M%S')
-    # camera.close()
     camera = PiCamera()
     camera.resolution = (1024, 768)
     camera.start_preview()
     # Camera warm-up time
     time.sleep(2)
-    # camera.capture('foo.jpg')
-    # camera = PiCamera()
-    # time.sleep(2)
     camera_file = f'/home/simon/git/midjourney-bot/camera/{file_prefix}_photo.jpg'
     camera.capture(camera_file)
-    print('Done.') 
     camera.close()   
 
     if bset.get_automode():
@@ -43,14 +40,9 @@ def setup_gpio():
     GPIO.setwarnings(False) # Ignore warning for now
     GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
 
-    # Set pin 8 and 10 to be an input pin and set initial value to be pulled low (off)
+    # Set pins to be an input pin and set initial value to be pulled low (off)
     GPIO.setup(8, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) 
     GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-
-    # while True: # Run forever
-    #     if GPIO.input(10) == GPIO.HIGH:
-    #         print('Button was pushed!')
-
     # Setup event on pin 10 rising edge
-    GPIO.add_event_detect(10,GPIO.RISING,callback=button_callback,bouncetime=3000) 
+    GPIO.add_event_detect(10, GPIO.RISING, callback=button_callback, bouncetime=3000) 
