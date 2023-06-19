@@ -18,6 +18,7 @@ def caption_wrap(caption):
 def create_img_new(img_1, img_2, caption):
     # Removing trailing text
     caption =  re.sub(' \- [<]@(.*$)', '', caption)
+    caption =  re.sub('@[0-9]+.*$', '', caption)
 
     caption = caption_wrap(caption)
     #Read the two images
