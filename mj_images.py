@@ -14,6 +14,8 @@ def caption_wrap(caption):
     wrapper = textwrap.TextWrapper(width=50) 
     word_list = wrapper.wrap(text=caption) 
     return_text = ''
+    print(type(word_list))
+    word_list = word_list[0:2]
     for ii in word_list[:-1]:
         return_text = return_text + ii + '\n'
     return_text += word_list[-1]
@@ -34,13 +36,13 @@ def create_img_new(img_1, img_2, caption):
     image2 = image2.resize((320, 240))
     image1_size = image1.size
     image2_size = image2.size
-    new_image = Image.new('RGB', (2*image1_size[0], image1_size[1]*2), (250,250,250))
-    new_image.paste(image1, (0,0))
-    new_image.paste(image2, (image1_size[0],0))
+    new_image = Image.new('RGB', ((2*image1_size[0])+30, 360), (250,250,250))
+    new_image.paste(image1, (10,10))
+    new_image.paste(image2, (image1_size[0]+20,10))
 
     # Front Image
     frontImage = Image.open(get_background(caption))
-    frontImage = frontImage.resize((810, 560))
+    frontImage = frontImage.resize((830, 240))
     frontImage = frontImage.convert("RGBA")
     new_image = new_image.convert('RGBA')
 
@@ -51,11 +53,11 @@ def create_img_new(img_1, img_2, caption):
     # height = (new_image.height - frontImage.height) // 2
 
     # Paste the frontImage at (width, height)
-    new_image.paste(frontImage, (-90, 60), frontImage)
+    new_image.paste(frontImage, (-90, 180), frontImage)
 
     draw = ImageDraw.Draw(new_image)
     ifont = ImageFont.truetype(bset.get_font() , 26)
-    draw.text((20,260), caption, font=ifont, fill=(0,0,0))
+    draw.text((20,280), caption, font=ifont, fill=(0,0,0))
 
     file_prefix = time.strftime('%Y%m%d_%H%M%S')
     img_target = f'{final_dir}/{file_prefix}.png'
@@ -84,7 +86,12 @@ def get_background(caption):
     else:
         return f'{background_path}/box_yellow.png'
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
+    bset.set_caption('Pop art Caption a black cat laying on top of a yellow blanket, in the style of vivienne tam, graceful poses, smooth and shiny --ar 4:3 - ')
+    bset.set_caption('futuristic  - ')
+    bset.set_from_file('./test_images/01.JPG')
+    bset.set_to_file('./test_images/02.JPG')
+    do_create_img()
 #     img_from = '/Users/saubury/git/saubury/midjourney-bot/test_images/02.JPG'
 #     img_to = 'output/20230611_090933_Simon_Aubury_retro_pop_art-style_illustration_a_pokemon_mug_sit_818e9f5a-0a96-461e-8a63-e5dd37cc43ad_top_left.jpg'
 #     img_caption = 'retro pop art-style illustration, a pokemon mug sits on an apple keyboard, in the style of captured spontaneity feeling, worthington whittredge, ue5, meticulous, sarah purser, emphasis on the process, yellow and silver --ar 4:3 - <@1003065257578741851>'
