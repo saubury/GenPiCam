@@ -3,6 +3,8 @@ import time
 import bot_settings as bset
 import discord_util as dut
 
+# Low level mid-journey bot intteractions with PyAutoGUI to control the mouse and keyboard to automate interactions
+
 def get_mj_message(msg):
     print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
     print(msg)
@@ -79,8 +81,6 @@ def go_describe_rasppi(image_path):
     time.sleep(1)
     pg.click()
     time.sleep(1)
-    #            pg.hotkey('command','G', interval=0.1)
-    #            pg.write('/tmp/demo.jpg')
     pg.write(image_path)
     time.sleep(1)
     # close the file path

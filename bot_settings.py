@@ -1,5 +1,7 @@
 import time
 
+# State handler for async messaging with Discord
+
 loc_test_images_dir = '/Users/saubury/git/saubury/midjourney-bot/test_images'
 loc_is_pi = False
 loc_automode = False
