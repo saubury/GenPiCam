@@ -2,7 +2,7 @@
 
 GenPiCam - *a RaspberryPi based camera that re-imagines the world with GenAI.*
 
-Read the [blog](https://medium.com/@simon-aubury/genpicam-generative-ai-camera-dfd8123ac6f6) for more details
+Read the [blog](https://simon-aubury.medium.com/genpicam-generative-ai-camera-dfd8123ac6f6) for more details
 
 ## Setup virtual python environment
 Create a [virtual python](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) environment to keep dependencies separate. The _venv_ module is the preferred way to create and manage virtual environments. 
